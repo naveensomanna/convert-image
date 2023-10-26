@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert image</title>
+</head>
+
+<body>
+    <form>
+
+        <input id='uploader' type="file" accept="image/*" />
+        <div id='form-actions'>
+            <select id="format-dropdown" name="format">
+                <option value="jpg">To JPG</option>
+                <option value="png">To PNG</option>
+                <option value="gif">To GIF</option>
+                <option value="tiff">To TIFF</option>
+                <option value="bmp">To BMP</option>
+            </select>
+        </div>
+        <button id="submit-btn">Convert</button>
+    </form>
+    <div id='output' style='display:none'>
+        <img width='100%' />
+        <a href='#' download>Download</a>
+    </div>
+    <script type='module' src="/js/main.js"></script>
+
+</body>
+
+</html>
