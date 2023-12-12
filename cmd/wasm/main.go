@@ -12,8 +12,6 @@ var fileFormatFromInt = map[int]imagewand.FileFormat{
 	1: imagewand.FileFormatJPG,
 	2: imagewand.FileFormatPNG,
 	3: imagewand.FileFormatGIF,
-	4: imagewand.FileFormatTIFF,
-	5: imagewand.FileFormatBMP,
 }
 
 func convertFromBlob() js.Func {

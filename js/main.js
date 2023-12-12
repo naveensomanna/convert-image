@@ -5,20 +5,18 @@ import { imageWand, formatToNumber } from "./imagewand.js";
   const {  ...controller } = Controller();
 
   let buf;
-  controller.onSubmit(async (e) => {
+  controller.onSubmit(async (e,form) => {
     e.preventDefault();
 
     // Configures a second delay so user doesn't see flickering
     setTimeout(async () => {
       // Calls Golang WASM runtime and receive HTTP response
-      const format = controller.getFormat();
-      console.log(format, "format type");
+      const format = controller.getFormat(); // jpg or png
       const result = await imageWand();
       const arrayBuffer = await result.convertFromBlob(
-        formatToNumber(format),
-        new Uint8Array(buf)
+        formatToNumber(format), // get the number 
+        new Uint8Array(buf) // converting arrayBuffer to unit8array
       );
-      console.log("called after go wasm");
       const blob = new Blob([arrayBuffer]);
 
       // Creates local ObjectURL, used for download and display
@@ -32,8 +30,8 @@ import { imageWand, formatToNumber } from "./imagewand.js";
       // Clean ObjectURL (good practice)
       URL.revokeObjectURL(objectURL);
       buf = null;
+      form.reset();
     }, 500);
-
     return false;
   });
 
@@ -51,6 +49,6 @@ import { imageWand, formatToNumber } from "./imagewand.js";
       return;
     }
 
-    buf = await files[0].arrayBuffer();
+    buf = await files[0].arrayBuffer(); // javascript arraybuffer
   });
 })();

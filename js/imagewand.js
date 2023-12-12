@@ -4,9 +4,7 @@
 export const formatGoNumber = {
   jpg: 1,
   png: 2,
-  gif: 3,
-  tiff: 4,
-  bmp: 5,
+  gif: 3
 };
 
 export const formatToNumber = (input) => formatGoNumber[input];
@@ -16,7 +14,6 @@ export const imageWand = async () => {
   await import("../wasm_exec.js");
 
   const go = new window.Go();
-  console.log("::::::::::::", go.importObject)
   const result = await WebAssembly.instantiateStreaming(
     fetch("../main.wasm"),
     go.importObject

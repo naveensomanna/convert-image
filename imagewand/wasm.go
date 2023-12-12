@@ -2,17 +2,15 @@ package imagewand
 
 import (
 	"errors"
-	"image"
 	"image/gif"
 	"image/jpeg"
 	"image/png"
-	"io"
 	"os"
 	"strings"
 
-	"golang.org/x/image/bmp"
-	"golang.org/x/image/tiff"
-	_ "golang.org/x/image/webp" // allow web decoding
+	"io"
+
+	"image"
 )
 
 // ImageWand Instance of where the magic happens
@@ -25,11 +23,9 @@ type FileFormat string
 
 const (
 	// supported file formats
-	FileFormatJPG  FileFormat = "jpeg"
-	FileFormatPNG  FileFormat = "png"
-	FileFormatGIF  FileFormat = "gif"
-	FileFormatTIFF FileFormat = "tiff"
-	FileFormatBMP  FileFormat = "bmp"
+	FileFormatJPG FileFormat = "jpeg"
+	FileFormatPNG FileFormat = "png"
+	FileFormatGIF FileFormat = "gif"
 )
 
 // Open creates an instance of ImageWand based on a file in the file system
@@ -63,10 +59,7 @@ func (i ImageWand) Convert(w io.Writer, format FileFormat) error {
 		return gif.Encode(w, i.img, nil)
 	case FileFormatPNG:
 		return png.Encode(w, i.img)
-	case FileFormatBMP:
-		return bmp.Encode(w, i.img)
-	case FileFormatTIFF:
-		return tiff.Encode(w, i.img, nil)
+
 	default:
 		return errors.New("unsupported format")
 	}
@@ -85,12 +78,8 @@ func (i ImageWand) Save(dest string) error {
 		format = FileFormatJPG
 	case extensionIsAny(dest, []string{"png"}):
 		format = FileFormatPNG
-	case extensionIsAny(dest, []string{"tiff"}):
-		format = FileFormatTIFF
 	case extensionIsAny(dest, []string{"gif"}):
 		format = FileFormatGIF
-	case extensionIsAny(dest, []string{"bmp"}):
-		format = FileFormatBMP
 	default:
 		return errors.New("unsupported format")
 	}

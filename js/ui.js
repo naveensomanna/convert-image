@@ -11,7 +11,7 @@ export const Controller = () => {
       onSubmit: (cb) => {
         form.onsubmit = (e) => {
             e.preventDefault();
-            cb(e);
+            cb(e,form);
           };
     
       },
